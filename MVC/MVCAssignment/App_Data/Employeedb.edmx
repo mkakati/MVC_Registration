@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="sdirecttestdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EmployeesCountry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeesDB">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ImageActualName" Type="varchar" MaxLength="250" />
+          <Property Name="ImageName" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="EmployeesState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="StateName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CountryID" Type="int" />
+        </EntityType>
+        <Association Name="FK_EmployeesState_EmployeesCountry">
+          <End Role="EmployeesCountry" Type="Self.EmployeesCountry" Multiplicity="0..1" />
+          <End Role="EmployeesState" Type="Self.EmployeesState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeesCountry">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeesState">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sdirecttestdbModelStoreContainer">
+          <EntitySet Name="EmployeesCountry" EntityType="Self.EmployeesCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeesDB" EntityType="Self.EmployeesDB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeesState" EntityType="Self.EmployeesState" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EmployeesState_EmployeesCountry" Association="Self.FK_EmployeesState_EmployeesCountry">
+            <End Role="EmployeesCountry" EntitySet="EmployeesCountry" />
+            <End Role="EmployeesState" EntitySet="EmployeesState" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sdirecttestdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EmployeesDB">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImageActualName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ImageName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="sdirecttestdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmployeesDBs" EntityType="Self.EmployeesDB" />
+          <EntitySet Name="EmployeesCountries" EntityType="sdirecttestdbModel.EmployeesCountry" />
+          <EntitySet Name="EmployeesStates" EntityType="sdirecttestdbModel.EmployeesState" />
+          <AssociationSet Name="FK_EmployeesState_EmployeesCountry" Association="sdirecttestdbModel.FK_EmployeesState_EmployeesCountry">
+            <End Role="EmployeesCountry" EntitySet="EmployeesCountries" />
+            <End Role="EmployeesState" EntitySet="EmployeesStates" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EmployeesCountry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EmployeesStates" Relationship="sdirecttestdbModel.FK_EmployeesState_EmployeesCountry" FromRole="EmployeesCountry" ToRole="EmployeesState" />
+        </EntityType>
+        <EntityType Name="EmployeesState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="StateName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CountryID" Type="Int32" />
+          <NavigationProperty Name="EmployeesCountry" Relationship="sdirecttestdbModel.FK_EmployeesState_EmployeesCountry" FromRole="EmployeesState" ToRole="EmployeesCountry" />
+        </EntityType>
+        <Association Name="FK_EmployeesState_EmployeesCountry">
+          <End Type="sdirecttestdbModel.EmployeesCountry" Role="EmployeesCountry" Multiplicity="0..1" />
+          <End Type="sdirecttestdbModel.EmployeesState" Role="EmployeesState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeesCountry">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeesState">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sdirecttestdbModelStoreContainer" CdmEntityContainer="sdirecttestdbEntities">
+          <EntitySetMapping Name="EmployeesDBs">
+            <EntityTypeMapping TypeName="sdirecttestdbModel.EmployeesDB">
+              <MappingFragment StoreEntitySet="EmployeesDB">
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ImageActualName" ColumnName="ImageActualName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeesCountries">
+            <EntityTypeMapping TypeName="sdirecttestdbModel.EmployeesCountry">
+              <MappingFragment StoreEntitySet="EmployeesCountry">
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeesStates">
+            <EntityTypeMapping TypeName="sdirecttestdbModel.EmployeesState">
+              <MappingFragment StoreEntitySet="EmployeesState">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

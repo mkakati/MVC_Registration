@@ -1,0 +1,55 @@
+﻿.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 0px 50px;
+    cursor: pointer;
+    width: 110px;
+    margin-top: 10px;
+}
+
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0)
+    }
+
+#headingUserProfile {
+    border: dashed 3px #428bca;
+    height: 69px;
+    margin: 0px 0px 50px 0px;
+    background-color: aliceblue;
+}
+
+#headUserProfile {
+    color: #428bca;
+}
+
+.submit-btns {
+    text-align: center;
+}
+
+    .submit-btns button {
+        width: 100px
+    }
+
+.img-profile {
+    text-align: center
+}
+
+    .img-profile img {
+        border-radius: 150px;
+        width: 150px;
+        height: 150px;
+        border: 1px dashed grey;
+    }
+
+.validate-input {
+    border-color: #bc1e1e;
+    color: #bc1e1e;
+}
